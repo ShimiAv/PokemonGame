@@ -1,3 +1,5 @@
+package com.company;
+
 import com.company.Attack;
 import com.company.Constants;
 import com.company.Pokemon;
