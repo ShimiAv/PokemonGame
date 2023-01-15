@@ -52,6 +52,10 @@ public abstract class Pokemon {
         return enough;
     }
 
+    public void setCurrentAttackPoints(int currentAttackPoints) {
+        this.currentAttackPoints = (int) (maxAttackPoints*0.75);
+    }
+
     public void reduceAttackPoints(int amount) {
         this.currentAttackPoints -= amount;
     }

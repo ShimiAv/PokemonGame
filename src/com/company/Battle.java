@@ -8,8 +8,8 @@ public class Battle {
 
     private static Pokemon randomizePokemon() {
 
-        int randomRaw = Constants.RANDOM.nextInt(PokemonList.pokemons.length);
-        Pokemon randomPokemon = PokemonList.pokemons[randomRaw][Constants.STRAT_RANDOM_COL];
+        int randomRaw = Constants.RANDOM.nextInt(PokemonList.pokemonTable.length);
+        Pokemon randomPokemon = PokemonList.pokemonTable[randomRaw][Constants.START_RANDOM_COL];
         return randomPokemon;
 
     }

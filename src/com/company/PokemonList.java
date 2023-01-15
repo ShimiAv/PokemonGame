@@ -60,7 +60,7 @@ public class PokemonList {
             })
     };
 
-    public static final Pokemon[][] pokemons = new Pokemon[][]{
+    public static final Pokemon[][] pokemonTable = new Pokemon[][]{
             CHARMANDER, SALANDIT, MOLTERS, PIKACHU, BLITZLE, ELECTABUZZ
     };
 

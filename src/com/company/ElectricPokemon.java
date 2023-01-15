@@ -1,17 +1,17 @@
 package com.company;
 
 public class ElectricPokemon extends Pokemon {
-    private int electricity;
+    private int battery;
     private int type;
 
     public void uniqueAbility() {
         if (isDischargeNeeded()) {
-            this.electricity = 0;
+            this.battery = 0;
         } else {
-            this.electricity += Constants.CHARGE_BOOST;
+            this.battery += Constants.CHARGE_BOOST;
         }
         for (int i = 0; i < this.getAttacks().length; i++) {
-            this.getAttacks()[i].setBonusDamage(this.electricity);
+            this.getAttacks()[i].setBonusDamage(this.battery);
         }
     }
 
@@ -25,14 +25,8 @@ public class ElectricPokemon extends Pokemon {
     }
 
 
-    public void specialPower() {
-
-    }
-
-    ;
-
-    public ElectricPokemon(String name,  int maxLife,  int maxAttackPoints, int level, Attack[] attacks) {
-        super(name,  maxLife,  maxAttackPoints, level, attacks);
+    public ElectricPokemon(String name, int maxLife, int maxAttackPoints, int level, Attack[] attacks) {
+        super(name, maxLife, maxAttackPoints, level, attacks);
         this.type = Constants.ELECTRIC_TYPE;
     }
 
@@ -54,7 +48,7 @@ public class ElectricPokemon extends Pokemon {
     }
 
     public String toString() {
-        return super.toString() + " Electricity: " + this.electricity;
+        return super.toString() + " Electricity: " + this.battery;
     }
 
 }

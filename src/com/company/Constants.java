@@ -21,7 +21,7 @@ public class Constants {
     public static final int ELECTRIC_TYPE = 2;
     public static final int DISCHARGE_PERCENTAGE = 20;
     public static final int CHARGE_BOOST = 5;
-    public static final int STRAT_RANDOM_COL = 0;
+    public static final int START_RANDOM_COL = 0;
 
 
 }
