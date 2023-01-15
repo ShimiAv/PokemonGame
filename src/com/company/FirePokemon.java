@@ -11,10 +11,11 @@ public class FirePokemon extends Pokemon{
 
     public void uniqueAbility () {
         int chance = Constants.RANDOM.nextInt(Constants.PERCENT_REPRESENTATIVE) + 1;
-        if (chance <= Constants.SELF_DAMAGE) {
+        if (chance == Constants.SELF_DAMAGE) {
             int selfDamageAmount = Constants.RANDOM.nextInt(Constants.MIN_SELF_DAMAGE, Constants.MAX_SELF_DAMAGE + 1);
             int result = this.getCurrentLife() - selfDamageAmount;
             this.setCurrentLife(result);
+            System.out.println("you have lost " + selfDamageAmount + "HP");
         }
     }
 
