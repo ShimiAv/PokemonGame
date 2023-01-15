@@ -28,4 +28,15 @@ public class Attack {
         Random random = new Random();
         return random.nextInt(this.maxDamage - this.minDamage) + this.minDamage + 1;
     }
+
+    public int damageRandomizer(){
+        int damage;
+        if (this.minDamage==this.maxDamage){
+            damage=minDamage;
+        }else {
+            damage = Constants.RANDOM.nextInt(minDamage,maxDamage);
+        }
+
+        return damage;
+    }
 }

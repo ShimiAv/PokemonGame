@@ -1,6 +1,6 @@
 package com.company;
 
-public class FirePokemon extends Pokemon{
+public class FirePokemon extends Pokemon {
 
     private int type;
 
@@ -9,7 +9,7 @@ public class FirePokemon extends Pokemon{
 
     }
 
-    public void uniqueAbility () {
+    public void uniqueAbility() {
         int chance = Constants.RANDOM.nextInt(Constants.PERCENT_REPRESENTATIVE) + 1;
         if (chance == Constants.SELF_DAMAGE) {
             int selfDamageAmount = Constants.RANDOM.nextInt(Constants.MIN_SELF_DAMAGE, Constants.MAX_SELF_DAMAGE + 1);
@@ -20,15 +20,25 @@ public class FirePokemon extends Pokemon{
     }
 
 
-    public FirePokemon(String name, int maxLife,  int maxAttackPoints, int level,Attack[] attacks) {
-        super(name, maxLife, maxAttackPoints, level,attacks);
+    public FirePokemon(String name, int maxLife, int maxAttackPoints, int level, Attack[] attacks, int currentLife, int currentAttackPoints) {
+        super(name, maxLife, maxAttackPoints, level, attacks, currentLife, currentAttackPoints);
         this.type = Constants.FIRE_TYPE;
     }
 
+    public static void doubleAttackPerform() {
+        Attack attack1 = attacksRandomizer();
+        Attack attack2 = attacksRandomizer();
 
 
-    public FirePokemon (Pokemon other) {
-        super(other);
+
+    }
+
+    private static Attack attacksRandomizer() {
+        Attack randomAttack;
+        int randomAttackIndex = Constants.RANDOM.nextInt(AttackList.firePokemonsAttackList.length);
+        randomAttack = AttackList.firePokemonsAttackList[randomAttackIndex];
+
+        return randomAttack;
     }
 
 

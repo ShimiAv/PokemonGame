@@ -3,8 +3,8 @@ package com.company;
 import java.util.Scanner;
 
 public class Battle {
-    private static final Pokemon PLAYER_1 = randomizePokemon();
-    private static final Pokemon PLAYER_2 = randomizePokemon();
+    private static Pokemon player1 = randomizePokemon();
+    private static Pokemon player2 = randomizePokemon();
 
     private static Pokemon randomizePokemon() {
 
@@ -14,31 +14,42 @@ public class Battle {
 
     }
 
+    public static void performTurn(Pokemon pokemon1, Pokemon pokemon2) {
+        int userChoice;
+        System.out.println("Choose an option: " + "\n" +
+                "|1| for Attack" + "\n" +
+                "|2| for Skip turn" + "\n" +
+                "|3| for Evolve" + "\n" +
+                "|4| for Special Ability "+ "\n" +
+                "|5| for kick");
+        userChoice = Constants.SCANNER.nextInt();
+        switch (userChoice) {
+            case 1 -> pokemon1.performAttack(pokemon2);
+            case 2 -> pokemon1.skipTurn();
+            case 3 -> pokemon1.evolve();
+            case 4 -> pokemon1.specialAbilityPerform(pokemon1);
+            case 5 -> pokemon1.kick(pokemon2);
+            default -> System.out.println("Invalid input, please try again");
+
+        }
+        pokemon1.setCurrentAttackPoints(Constants.RANDOM.nextInt(Constants.AP_TO_ADD_EACH_TURN));
+        pokemon1.setCurrentLife(Constants.RANDOM.nextInt(Constants.HP_TO_ADD_EACH_TURN));
+    }
+
     public static void mainMenu() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("player 1: " + PLAYER_1.getName() + " " + PLAYER_1);
-        System.out.println("player 2: " + PLAYER_2.getName() + " " + PLAYER_2);
-        int userChoice;
-        while (PLAYER_1.isAlive() && PLAYER_2.isAlive()) {
-            System.out.println("Player 1 turn: ");
-            System.out.println("Choose an option: " +
-                    "|1| for Attack" +
-                    "|2| for Skip turn" +
-                    "|3| for Evolve" +
-                    "|4| for Special Ability ");
-            userChoice = Constants.SCANNER.nextInt();
-            switch (userChoice) {
-                case 1 -> PLAYER_1.attack(PLAYER_2);
-                case 2 -> PLAYER_1.skipTurn();
-                //case 3 -> PLAYER_1.evolve();
-                //case 4 -> PLAYER_1.specialAbility();
-
-            }
+        System.out.println("player 1: " + player1.getName() + " " + player1);
+        System.out.println("player 2: " + player2.getName() + " " + player2);
+        while (player1.isAlive() && player2.isAlive()) {
+            System.out.print("PLAYER 1: ");
+            performTurn(player1, player2);
+            System.out.print("PLAYER 2: ");
+            performTurn(player2, player1);
+            System.out.println("player 1: " + player1.getName() + " " + player1);
+            System.out.println("player 2: " + player2.getName() + " " + player2);
         }
 
     }
-
-
 
 
 }

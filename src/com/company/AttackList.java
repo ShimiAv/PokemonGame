@@ -1,9 +1,7 @@
 package com.company;
 
 public class AttackList {
-    public static final Attack[] KICK = new Attack[] {
-            new Attack ("Kick", 0, 2, 2)
-    };
+
 
 
     public static final Attack SCRATCH = new Attack("Scratch", 15, 25, 30);
@@ -22,4 +20,21 @@ public class AttackList {
     public static final Attack ZAP_KICK = new Attack("Zap Kick", 30, 30, 35);
     public static final Attack THUNDER = new Attack("Thunder", 60, 40, 50);
     public static final Attack THUNDER_PUNCH = new Attack("Thunder Punch", 80, 50, 120);
+
+    public static final Attack[] firePokemonsAttackList = new Attack[6];{
+        firePokemonsAttackList[0] = SCRATCH;
+        firePokemonsAttackList[1] = FLAME_TAIL;
+        firePokemonsAttackList[2] = FIERY_BLAST;
+        firePokemonsAttackList[3] = LIVE_COAL;
+        firePokemonsAttackList[4] = FIRE_CLAWS;
+        firePokemonsAttackList[5] = ASSISTING_HEATER;
+        firePokemonsAttackList[6] = FIRE_WING;
+
+
+
+
+
+    }
+
+
 }
