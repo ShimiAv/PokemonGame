@@ -15,6 +15,10 @@ public abstract class Pokemon {
     private int type;
     private Attack[] attacks;
 
+    public int getType() {
+        return type;
+    }
+
     public Attack[] getAttacks() {
         return attacks;
     }
@@ -27,6 +31,10 @@ public abstract class Pokemon {
         this.criticalDamage = false;
         this.criticalAttackTurn = 0;
         this.turnCounter = 0;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Pokemon(Pokemon other) {
@@ -147,7 +155,7 @@ public abstract class Pokemon {
     }
 
     public void setCurrentLife(int currentLife) {
-        this.currentLife = currentLife;
+        this.currentLife = maxLife;
     }
 
     public boolean isValidAttack(int attack) {
@@ -164,4 +172,15 @@ public abstract class Pokemon {
     public void setMaxLife(int maxLife) {
         this.maxLife = maxLife;
     }
+
+
+
+    public void evolve(){
+        int level=1;
+        if (this.getLevel()<2){
+            this.level++;
+        }
+    }
+
+
 }

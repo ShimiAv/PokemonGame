@@ -24,15 +24,11 @@ public class FirePokemon extends Pokemon{
         this.type = Constants.FIRE_TYPE;
     }
 
-    public int getType() {
-        return type;
-    }
+
 
     public FirePokemon (Pokemon other) {
         super(other);
     }
 
-    public void selfDamage () {
 
-    }
 }
