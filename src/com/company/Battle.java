@@ -70,12 +70,11 @@ public class Battle {
 
 
     public static void switchTurn() {
-        System.out.println("PLAYER 1: " + player1.getName() + " " + player1);
-        System.out.println("PLAYER 2: " + player2.getName() + " " + player2);
+
         while (player1.getPokemon().isAlive() && player2.getPokemon().isAlive()) {
-            System.out.print("PLAYER 1: ");
+
             startGame(player1, player2);
-            System.out.print("PLAYER 2: ");
+
             startGame(player2, player1);
             System.out.println("PLAYER 1: " + player1.getName() + " " + player1);
             System.out.println("PLAYER 2: " + player2.getName() + " " + player2);
@@ -95,6 +94,7 @@ public class Battle {
         );
         System.out.println();
     }
+
 
 
 

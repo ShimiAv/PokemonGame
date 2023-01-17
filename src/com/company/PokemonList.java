@@ -65,19 +65,5 @@ public class PokemonList {
             CHARMANDER, SALANDIT, MOLTERS, PIKACHU, BLITZLE, ELECTABUZZ
     };
 
-    public static int[] returnIndexOfPokemon(Pokemon pokemon) {
-        int[] index = new int[2];
-        for (int i = 0; i < pokemonTable.length; i++) {
-            for (int j = 0; j < pokemonTable[i].length; j++) {
-                if (pokemonTable[i][j] == pokemon) {
-                    index[0] = i;
-                    index[1] = j;
-                    break;
-                }
-            }
-        }
-
-        return index;
-    }
 
 }

@@ -2,11 +2,6 @@ package com.company;
 
 public class FirePokemon extends Pokemon {
 
-
-    public void attack(Pokemon enemy) {
-
-    }
-
     public void uniqueAbility() {
         int chance = Constants.RANDOM.nextInt(Constants.PERCENT_REPRESENTATIVE) + 1;
         if (chance == Constants.SELF_DAMAGE) {

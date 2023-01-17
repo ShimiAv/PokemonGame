@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.Random;
 
 public class Attack {
     private String name;
@@ -41,9 +40,9 @@ public class Attack {
     }
 
     public String toString () {
-        String text = "Attack: " + this.name + "(" + this.cost + "points)";
+        String text = "Attack name: " + this.name + "(" + this.cost + " points)";
         text += " Damage: ";
-        text += (this.minDamage==this.maxDamage)? (bonusPercentage(this.maxDamage)): (bonusPercentage(this.minDamage)) + " | " + (bonusPercentage(this.maxDamage));
+        text += (this.minDamage==this.maxDamage)? (bonusPercentage(this.maxDamage)): (bonusPercentage(this.minDamage)) + " / " + (bonusPercentage(this.maxDamage));
         return text;
     }
 }

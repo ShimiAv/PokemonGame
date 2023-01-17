@@ -5,7 +5,10 @@ public class Trainer {
     private Pokemon[] pokemons;
     private int level;
 
-
+    public Trainer(String name, int level, Pokemon[] pokemon) {
+        this.name = name;
+        this.pokemons = pokemon;
+    }
 
     public String getName() {
         String name = "";
@@ -20,7 +23,7 @@ public class Trainer {
     }
 
     public int getLevel() {
-        int level=0;
+        int level = 0;
         Pokemon pokemon;
         for (int i = 0; i < pokemons.length; i++) {
             if (pokemons[i] != null) {
@@ -32,7 +35,7 @@ public class Trainer {
     }
 
     public Pokemon getPokemon() {
-        Pokemon pokemonToReturn=null;
+        Pokemon pokemonToReturn = null;
         for (int i = 0; i < pokemons.length; i++) {
             if (pokemons[i] != null) {
                 pokemonToReturn = pokemons[i];
@@ -46,8 +49,8 @@ public class Trainer {
         if (this.level < this.getPokemons().length) {
             int[] minLifeToEvolve = {Constants.LIFE_REDUCTION_FIRST_EVOLVE, Constants.LIFE_REDUCTION_SECOND_EVOLVE};
             int[] minManaToEvolve = {Constants.ATTACK_REDUCTION_FIRST_EVOLVE, Constants.ATTACK_REDUCTION_SECOND_EVOLVE};
-            if (this.pokemons[this.level - 1].isEvolvePossible(minLifeToEvolve[this.level - 1], minManaToEvolve[this.level - 1])) {
-                this.pokemons[this.level].getPreviousStats(this.pokemons[this.level - 1]);
+            if (this.pokemons[1] != null && this.pokemons[0].isEvolvePossible(minLifeToEvolve[1], minManaToEvolve[1])) {
+                this.pokemons[1].getPreviousStats(this.pokemons[0]);
                 this.level++;
                 result = true;
             }
@@ -58,10 +61,10 @@ public class Trainer {
     }
 
     public String toString() {
-        return this.getPokemon() + " (" + this.name + ")";
+        return this.getPokemon() + "";
     }
 
-    public Pokemon[]getPokemons(){
+    public Pokemon[] getPokemons() {
         return this.pokemons;
     }
 

@@ -58,13 +58,6 @@ public class ElectricPokemon extends Pokemon {
         return isLow;
     }
 
-    public boolean isKilled(Pokemon enemy) {
-        this.uniqueAbility();
-        boolean result = super.tryToKill(enemy);
-        this.addBattery();
-        return result;
-    }
-
     public int specialPower() {
         int result = Constants.SPECIAL_POWER_FAILURE;
         if (!isSpecialPowerAvailable) {

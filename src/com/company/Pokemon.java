@@ -12,9 +12,7 @@ public abstract class Pokemon {
     private boolean criticalDamage;
     private int turnCounter;
     private int criticalAttackTurn;
-    private int type;
     private Attack[] attacks;
-
 
 
     public Attack[] getAttacks() {
@@ -62,15 +60,6 @@ public abstract class Pokemon {
 
     public abstract Pokemon duplicatePokemon();
 
-    public boolean hasEnoughAttackPoints(Attack attack) {
-        boolean enough = false;
-        if (this.currentAttackPoints >= attack.getCost()) {
-            enough = true;
-
-        }
-        return enough;
-    }
-
     public void setCurrentAttackPoints(int currentAttackPoints) {
         this.currentAttackPoints = currentAttackPoints;
     }
@@ -83,14 +72,6 @@ public abstract class Pokemon {
 
     }
 
-    public void reduceAttackPoints(int amount) {
-        this.currentAttackPoints -= amount;
-    }
-
-    public boolean isCriticalDamage() {
-        return criticalDamage;
-    }
-
     public void addAttacks(Attack[] attacksList) {
         int length = 0;
         int index;
@@ -99,7 +80,7 @@ public abstract class Pokemon {
         } else {
             length = this.attacks.length;
         }
-        if(attacksList == null){
+        if (attacksList == null) {
             attacksList = new Attack[0];
         }
         Attack[] temp = new Attack[attacksList.length + length];
@@ -114,14 +95,6 @@ public abstract class Pokemon {
             i++;
         } while (i != attacksList.length);
         this.attacks = temp;
-    }
-
-    public void reduceLife(int amount) {
-        this.currentLife -= amount;
-    }
-
-    public void setCriticalDamage(boolean criticalDamage) {
-        this.criticalDamage = criticalDamage;
     }
 
     private int startingManaCalculator(int maxAttackPoints) {
@@ -139,7 +112,7 @@ public abstract class Pokemon {
         if (this.currentLife + randomLifeAdd > this.maxLife) {
             this.currentLife = this.maxLife;
         } else this.setCurrentLife(this.currentLife + randomLifeAdd);
-        System.out.println("BOUNUS : you got more " + randomLifeAdd + " HP");
+        System.out.println("BONUS : you got more " + randomLifeAdd + " HP");
     }
 
     public void addAttackPoints() {
@@ -148,7 +121,7 @@ public abstract class Pokemon {
         if (this.currentAttackPoints + randomAttackAdd > this.maxAttackPoints) {
             this.currentAttackPoints = this.maxAttackPoints;
         } else this.setCurrentAttackPoints(currentAttackPoints + randomAttackAdd);
-        System.out.println("BOUNUS : you got more " + randomAttackAdd + " AP");
+        System.out.println("BONUS : you got more " + randomAttackAdd + " AP");
 
     }
 
@@ -158,18 +131,6 @@ public abstract class Pokemon {
             alive = false;
         }
         return alive;
-    }
-
-    public void setTurnCounter(int turnCounter) {
-        this.turnCounter = turnCounter;
-    }
-
-    public int getTurnCounter() {
-        return turnCounter;
-    }
-
-    public int getCriticalAttackTurn() {
-        return criticalAttackTurn;
     }
 
     public void skipTurn() {
@@ -200,27 +161,11 @@ public abstract class Pokemon {
     }
 
     public void setCurrentLife(int currentLife) {
-        this.currentLife = maxLife;
-    }
-
-    public boolean isValidAttack(int attack) {
-        boolean valid = attack == Constants.LEVEL_ONE;
-        if ((attack == Constants.LEVEL_TWO) && (this.getLevel() >= Constants.LEVEL_TWO)) valid = true;
-        if ((attack == Constants.LEVEL_THREE) && (this.getLevel() == Constants.LEVEL_THREE)) valid = true;
-        return valid;
+        this.currentLife = currentLife;
     }
 
     public int getMaxLife() {
         return maxLife;
-    }
-
-    public void setMaxLife(int maxLife) {
-        this.maxLife = maxLife;
-    }
-
-
-    public int getCurrentAttackPoints() {
-        return currentAttackPoints;
     }
 
     private String printsAttacksArray() {
@@ -233,7 +178,6 @@ public abstract class Pokemon {
         }
         return text;
     }
-
 
     private boolean attackExistenceCheck(int userInput) {
         boolean isExist = false;
@@ -264,7 +208,7 @@ public abstract class Pokemon {
         enemy.performAttack(damage);
         boolean result = enemy.isAlive();
         if (result) {
-            System.out.println(enemy.name+  " is dead " + this.name + " is the winner!");
+            System.out.println(enemy.name + " is dead " + this.name + " is the winner!");
             System.out.println();
 
         }
@@ -283,16 +227,6 @@ public abstract class Pokemon {
             Constants.SCANNER.nextLine();
         } while (!attackExistenceCheck(chance));
         return chance;
-    }
-
-    private boolean attackPointsChecker(int userInput) {
-        boolean result = false;
-        if (this.currentAttackPoints >= this.attacks[userInput - 1].getCost()) {
-            result = true;
-        } else {
-            System.out.println("You dont have enough attack points");
-        }
-        return result;
     }
 
     public boolean doubleDamage(Pokemon pokemon) {
@@ -319,7 +253,7 @@ public abstract class Pokemon {
     }
 
     void performAttack(int damage) {
-        removeBonus();
+
         this.setCurrentLife(this.getCurrentLife() - damage);
     }
 
@@ -332,28 +266,6 @@ public abstract class Pokemon {
         return damage;
     }
 
-
-    private void removeBonus() {
-        for (int i = 0; i < this.attacks.length; i++) {
-            this.attacks[i].setBonusDamage(0);
-        }
-    }
-
-
-    public void specialAbilityPerform(Pokemon pokemon) {
-        switch (this.type) {
-            case Constants.ELECTRIC_TYPE -> {
-                pokemon.setCurrentAttackPoints(maxAttackPoints);
-                pokemon.setCurrentLife(maxLife);
-            }
-
-            case Constants.FIRE_TYPE -> {
-
-            }
-        }
-
-    }
-
     public boolean isEvolvePossible(int minLife, int minMana) {
         boolean isPossible = false;
         if (this.currentLife > minLife && this.currentAttackPoints > minMana) {
@@ -363,7 +275,6 @@ public abstract class Pokemon {
         }
         return isPossible;
     }
-
 
 
 }
