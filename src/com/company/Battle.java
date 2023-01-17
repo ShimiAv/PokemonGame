@@ -31,7 +31,7 @@ public class Battle {
         Constants.SCANNER.nextLine();
         switch (userChoice) {
             case 1 -> {
-                if (player1.getPokemons()[player1.getLevel() - 1].tryToKill(player2.getPokemons()[player2.getLevel() - 1])) {
+                if (!player1.getPokemons()[player1.getLevel() - 1].tryToKill(player2.getPokemons()[player2.getLevel() - 1])) {
                     endLoop = true;
                 } else {
                     switchTurn();

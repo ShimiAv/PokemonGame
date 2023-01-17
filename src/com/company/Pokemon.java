@@ -207,7 +207,7 @@ public abstract class Pokemon {
         int damage = this.damageCalculator(this.attacks[userInput - 1]);
         enemy.performAttack(damage);
         boolean result = enemy.isAlive();
-        if (result) {
+        if (!result) {
             System.out.println(enemy.name + " is dead " + this.name + " is the winner!");
             System.out.println();
 
