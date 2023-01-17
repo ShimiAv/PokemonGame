@@ -20,15 +20,20 @@ public class Constants {
     public static final int FIRE_TYPE = 1;
     public static final int ELECTRIC_TYPE = 2;
     public static final int DISCHARGE_PERCENTAGE = 20;
-    public static final int CHARGE_BOOST = 5;
     public static final int START_RANDOM_COL = 0;
     public static final int LIFE_REDUCTION_FIRST_EVOLVE = 20;
     public static final int ATTACK_REDUCTION_FIRST_EVOLVE = 25;
     public static final int LIFE_REDUCTION_SECOND_EVOLVE= 30;
     public static final int ATTACK_REDUCTION_SECOND_EVOLVE = 40;
-    public static final int HP_TO_ADD_EACH_TURN = 5;
-    public static final int AP_TO_ADD_EACH_TURN = 5;
-    public static final int KICK = 2;
+    public static final int ELECTRICITY_TO_ADD = 50;
+    public static final int  SPECIAL_POWER_FAILURE = 0;
+    public static final int SPECIAL_POWER_SUCCESS = 1;
+    public static final int HALF_REPRESENTATIVE = 2;
+    public static final int DOUBLE_DAMAGE = 2;
+    public static final int STARTING_MANA_POINTS = 75;
+
+
+
 
 
 

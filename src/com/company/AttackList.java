@@ -1,7 +1,9 @@
 package com.company;
 
 public class AttackList {
-
+    public static final Attack[] KICK = new Attack[] {
+            new Attack ("Kick", 0, 2, 2)
+    };
 
 
     public static final Attack SCRATCH = new Attack("Scratch", 15, 25, 30);

@@ -2,14 +2,13 @@ package com.company;
 
 public class ElectricPokemon extends Pokemon {
     private int battery;
-    private int type;
+    private boolean isSpecialPowerAvailable;
+
+    public ElectricPokemon(String name, int maxLife, int maxAttackPoints, int level, Attack[] attack, int currentLife, int currentAttackPoints) {
+        super(name, maxLife, maxAttackPoints, level, attack, currentLife, currentAttackPoints);
+    }
 
     public void uniqueAbility() {
-        if (isDischargeNeeded()) {
-            this.battery = 0;
-        } else {
-            this.battery += Constants.CHARGE_BOOST;
-        }
         for (int i = 0; i < this.getAttacks().length; i++) {
             this.getAttacks()[i].setBonusDamage(this.battery);
         }
@@ -24,25 +23,71 @@ public class ElectricPokemon extends Pokemon {
         return result;
     }
 
-    public ElectricPokemon(String name, int maxLife, int maxAttackPoints, int level, Attack[] attacks, int currentLife, int currentAttackPoints) {
-        super(name, maxLife, maxAttackPoints, level, attacks, currentLife, currentAttackPoints);
-        this.type = Constants.ELECTRIC_TYPE;
+    public ElectricPokemon() {
+        super();
     }
 
-    public int getType() {
-        return type;
+    public Pokemon duplicatePokemon() {
+        ElectricPokemon newPokemon = new ElectricPokemon();
+        this.statsDuplication(newPokemon);
+        return newPokemon;
     }
 
-    public void charge() {
+    public void skipTurn() {
+        super.skipTurn();
+        this.addBattery();
+    }
+
+    private void addBattery() {
+        this.battery += Constants.ELECTRICITY_TO_ADD;
+    }
+
+    protected void damage(int damage) {
+        super.performAttack(damage);
+        if (isLowBattery()) {
+            this.battery = 0;
+        }
+    }
+
+    private boolean isLowBattery() {
+        boolean isLow = false;
+        int batteryPercentToDischarge = this.getMaxLife() * Constants.DISCHARGE_PERCENTAGE / Constants.PERCENT_REPRESENTATIVE;
+        if (this.getCurrentLife() < batteryPercentToDischarge) {
+            isLow = true;
+        }
+        return isLow;
+    }
+
+    public boolean isKilled(Pokemon enemy) {
+        this.uniqueAbility();
+        boolean result = super.tryToKill(enemy);
+        this.addBattery();
+        return result;
+    }
+
+    public int specialPower() {
+        int result = Constants.SPECIAL_POWER_FAILURE;
+        if (!isSpecialPowerAvailable) {
+            this.setCurrentLife(this.getMaxLife());
+            this.setCurrentAttackPoints(this.getMaxAttackPoints());
+            isSpecialPowerAvailable = true;
+            result = Constants.SPECIAL_POWER_SUCCESS;
+            this.addBattery();
+        }
+        return result;
+    }
+
+    public void getCurrentStats(Pokemon lowerLevel) {
+        super.getPreviousStats(lowerLevel);
+        this.battery = ((ElectricPokemon) lowerLevel).battery;
+        this.isSpecialPowerAvailable = ((ElectricPokemon) lowerLevel).isSpecialPowerAvailable;
+        this.isLowBattery();
 
     }
+
 
     public String toString() {
-        return super.toString() + " Electricity: " + this.battery;
-    }
-
-    public void setBattery(int battery) {
-        this.battery = battery;
+        return super.toString() + " Battery : " + this.battery;
     }
 
 

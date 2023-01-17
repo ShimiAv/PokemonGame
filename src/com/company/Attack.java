@@ -24,19 +24,26 @@ public class Attack {
         this.bonusDamage = bonusDamage;
     }
 
-    public int getDamage() {
-        Random random = new Random();
-        return random.nextInt(this.maxDamage - this.minDamage) + this.minDamage + 1;
-    }
-
     public int damageRandomizer(){
         int damage;
+        int calculatedBonus ;
         if (this.minDamage==this.maxDamage){
             damage=minDamage;
         }else {
             damage = Constants.RANDOM.nextInt(minDamage,maxDamage);
         }
+        calculatedBonus = bonusPercentage(damage);
+        return calculatedBonus;
+    }
 
-        return damage;
+    private int bonusPercentage (int bonus) {
+        return bonus + (bonus * this.bonusDamage/ 100);
+    }
+
+    public String toString () {
+        String text = "Attack: " + this.name + "(" + this.cost + "points)";
+        text += " Damage: ";
+        text += (this.minDamage==this.maxDamage)? (bonusPercentage(this.maxDamage)): (bonusPercentage(this.minDamage)) + " | " + (bonusPercentage(this.maxDamage));
+        return text;
     }
 }

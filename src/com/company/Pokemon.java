@@ -15,15 +15,13 @@ public abstract class Pokemon {
     private int type;
     private Attack[] attacks;
 
-    public int getType() {
-        return type;
-    }
+
 
     public Attack[] getAttacks() {
         return attacks;
     }
 
-    public Pokemon(String name, int maxLife, int maxAttackPoints, int level, Attack[] attack, int currentLife, int currentAttackPoints) {
+    protected Pokemon(String name, int maxLife, int maxAttackPoints, int level, Attack[] attack, int currentLife, int currentAttackPoints) {
         this.name = name;
         this.maxLife = maxLife;
         this.maxAttackPoints = maxAttackPoints;
@@ -33,12 +31,35 @@ public abstract class Pokemon {
         this.turnCounter = 0;
         this.currentLife = currentLife;
         this.currentAttackPoints = currentAttackPoints;
+        this.addAttacks(attacks);
+        if (level == Constants.LEVEL_ONE) {
+            this.statsCalculator();
+        }
+    }
+
+    public Pokemon() {
+    }
+
+    protected void statsDuplication(Pokemon enemy) {
+        enemy.name = this.name;
+        enemy.criticalDamage = this.criticalDamage;
+        enemy.currentAttackPoints = this.currentAttackPoints;
+        enemy.level = this.level;
+        enemy.maxAttackPoints = this.maxAttackPoints;
+        enemy.maxLife = this.maxLife;
+        enemy.attacks = this.attacks;
+        enemy.currentLife = this.currentLife;
+
+
     }
 
     public String getName() {
         return name;
     }
 
+    public abstract int specialPower();
+
+    public abstract Pokemon duplicatePokemon();
 
     public boolean hasEnoughAttackPoints(Attack attack) {
         boolean enough = false;
@@ -53,6 +74,14 @@ public abstract class Pokemon {
         this.currentAttackPoints = currentAttackPoints;
     }
 
+    private void statsCalculator() {
+        this.currentAttackPoints = this.startingManaCalculator(this.maxAttackPoints);
+        this.currentLife = this.maxLife;
+        this.addAttacks(AttackList.KICK);
+
+
+    }
+
     public void reduceAttackPoints(int amount) {
         this.currentAttackPoints -= amount;
     }
@@ -61,6 +90,27 @@ public abstract class Pokemon {
         return criticalDamage;
     }
 
+    public void addAttacks(Attack[] attacksList) {
+        int length = 0;
+        int index;
+        if (this.attacks != null) {
+            length = this.attacks.length;
+
+        Attack[] temp = new Attack[attacksList.length + length];
+        for (int i = 0; i < length; i++) {
+            if (temp[i]!=null){
+            temp[i] = this.attacks[i];
+        }}
+        index = length;
+        int i = 0;
+        do {
+            temp[index] = attacksList[i];
+            index++;
+            i++;
+        } while (i != attacksList.length);
+        this.attacks = temp;
+        }
+    }
 
     public void reduceLife(int amount) {
         this.currentLife -= amount;
@@ -70,6 +120,10 @@ public abstract class Pokemon {
         this.criticalDamage = criticalDamage;
     }
 
+    private int startingManaCalculator(int maxAttackPoints) {
+        int result = maxAttackPoints * Constants.STARTING_MANA_POINTS / Constants.PERCENT_REPRESENTATIVE;
+        return result;
+    }
 
     public int getLevel() {
         return level;
@@ -131,6 +185,7 @@ public abstract class Pokemon {
 
     public String toString() {
         return "Life (" + this.currentLife + " / " + this.maxLife + " )" +
+                "Level " + this.level +
                 " , Attack Points: (" + this.currentAttackPoints + " / " + this.maxAttackPoints + ")";
     }
 
@@ -176,16 +231,6 @@ public abstract class Pokemon {
     }
 
 
-    public boolean performAttack(Pokemon other) {
-        int userInput;
-        do {
-            userInput = chooseAttack();
-        } while (!attackPointsChecker(userInput));
-        this.currentAttackPoints -= this.attacks[userInput - 1].getCost();
-        this.takeDamage(this.attacks[userInput - 1], other);
-        return other.isAlive();
-    }
-
     private boolean attackExistenceCheck(int userInput) {
         boolean isExist = false;
         if (this.attacks.length >= userInput && userInput > 0) {
@@ -194,6 +239,31 @@ public abstract class Pokemon {
             System.out.println("The input is incorrect, please try again");
         }
         return isExist;
+    }
+
+    public void getPreviousStats(Pokemon oldPokemon) {
+        this.currentLife = oldPokemon.currentLife;
+        this.currentAttackPoints = oldPokemon.currentAttackPoints;
+        this.addAttacks(oldPokemon.attacks);
+        this.criticalDamage = oldPokemon.criticalDamage;
+
+
+    }
+
+    public boolean tryToKill(Pokemon enemy) {
+        int userInput;
+        do {
+            userInput = chooseAttack();
+        } while (!checkPoints(userInput));
+        this.currentAttackPoints -= this.attacks[userInput - 1].getCost();
+        int damage = this.damageCalculator(this.attacks[userInput - 1]);
+        enemy.performAttack(damage);
+        boolean result = enemy.isAlive();
+        if (result) {
+            System.out.println("Your killed " + enemy.name);
+
+        }
+        return result;
     }
 
     public int getMaxAttackPoints() {
@@ -220,17 +290,50 @@ public abstract class Pokemon {
         return result;
     }
 
-    private void takeDamage(Attack attack, Pokemon other) {
-        int damage = attack.damageRandomizer();
-        removeBonus();
-        other.setCurrentLife(other.getCurrentLife() - damage);
+    public boolean doubleDamage(Pokemon pokemon) {
+        int index;
+        int damage = 0;
+
+        for (int i = 0; i < 2; i++) {
+            index = Constants.RANDOM.nextInt(pokemon.getAttacks().length);
+            damage += damageCalculator(pokemon.getAttacks()[index]);
+        }
+        this.performAttack(damage);
+
+        return this.isAlive();
     }
+
+    private boolean checkPoints(int userInput) {
+        boolean result = false;
+        if (this.currentAttackPoints >= this.attacks[userInput - 1].getCost()) {
+            result = true;
+        } else {
+            System.out.println("You dont have enough AP ");
+        }
+        return result;
+    }
+
+    void performAttack(int damage) {
+        removeBonus();
+        this.setCurrentLife(this.getCurrentLife() - damage);
+    }
+
+    protected int damageCalculator(Attack attack) {
+        int damage = attack.damageRandomizer();
+        if (this.criticalDamage) {
+            damage *= Constants.CRITICAL_DAMAGE;
+            this.criticalDamage = false;
+        }
+        return damage;
+    }
+
 
     private void removeBonus() {
         for (int i = 0; i < this.attacks.length; i++) {
             this.attacks[i].setBonusDamage(0);
         }
     }
+
 
     public void specialAbilityPerform(Pokemon pokemon) {
         switch (this.type) {
@@ -246,39 +349,16 @@ public abstract class Pokemon {
 
     }
 
-    public void kick(Pokemon enemy) {
-        enemy.setCurrentAttackPoints(enemy.getCurrentAttackPoints() - Constants.KICK);
-    }
-
-    public Pokemon performEvolve() {
-        Pokemon upgradedPokemon = null;
-        int[] upgradedPokemonIndex;
-        switch (this.level) {
-            case Constants.LEVEL_ONE -> {
-                if (getCurrentLife() > Constants.LIFE_REDUCTION_FIRST_EVOLVE && getCurrentAttackPoints() > Constants.ATTACK_REDUCTION_FIRST_EVOLVE) {
-                    upgradedPokemonIndex = PokemonList.returnIndexOfPokemon(this);
-                    upgradedPokemon = PokemonList.pokemonTable[upgradedPokemonIndex[upgradedPokemonIndex[0]]][Constants.LEVEL_ONE];
-                } else {
-                    System.out.println("You can't evolve now, HP/AP are too low");
-                }
-            }
-            case Constants.LEVEL_TWO -> {
-                if (getCurrentLife() > Constants.LIFE_REDUCTION_SECOND_EVOLVE && getCurrentAttackPoints() > Constants.ATTACK_REDUCTION_SECOND_EVOLVE) {
-                    upgradedPokemonIndex = PokemonList.returnIndexOfPokemon(this);
-                    upgradedPokemon = PokemonList.pokemonTable[upgradedPokemonIndex[upgradedPokemonIndex[0]]][Constants.LEVEL_TWO];
-                } else {
-                    System.out.println("You can't evolve now, HP/AP are too low");
-                }
-            }
+    public boolean isEvolvePossible(int minLife, int minMana) {
+        boolean isPossible = false;
+        if (this.currentLife > minLife && this.currentAttackPoints > minMana) {
+            isPossible = true;
+        } else {
+            System.out.println("You cant evolve right now, HP/AP is too low. ");
         }
-
-
-        return upgradedPokemon;
+        return isPossible;
     }
 
-    public void evolve() {
-        performEvolve();
-    }
 
 
 }
