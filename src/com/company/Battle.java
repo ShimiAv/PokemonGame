@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.Scanner;
 
 public class Battle {
 
@@ -20,12 +19,14 @@ public class Battle {
     public static void startGame(Trainer player1, Trainer player2) {
         boolean endLoop = false;
         int userChoice;
+        System.out.println("PLAYER 1: " + player1.getName() + " " + player1);
+        System.out.println("PLAYER 2: " + player2.getName() + " " + player2);
         System.out.println("Choose an option: " + "\n" +
                 "|1| for Attack" + "\n" +
                 "|2| for Skip turn" + "\n" +
                 "|3| for Evolve" + "\n" +
-                "|4| for Special Ability " + "\n" +
-                "|5| for kick");
+                "|4| for Special Ability " + "\n"
+               );
         userChoice = Constants.SCANNER.nextInt();
         Constants.SCANNER.nextLine();
         switch (userChoice) {
@@ -61,8 +62,11 @@ public class Battle {
             }
             default -> System.out.println("Invalid input, please try again");
         }
+
         while (!endLoop) ;
-    }
+        }
+
+
 
 
     public static void switchTurn() {

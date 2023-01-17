@@ -5,11 +5,7 @@ public class Trainer {
     private Pokemon[] pokemons;
     private int level;
 
-    public Trainer(String name, int level, Pokemon[] pokemon) {
-        this.name = name;
-        level = level;
-        this.pokemons = pokemon;
-    }
+
 
     public String getName() {
         String name = "";
@@ -62,7 +58,7 @@ public class Trainer {
     }
 
     public String toString() {
-        return this.pokemons[this.level - 1] + " (" + this.name + ")";
+        return this.getPokemon() + " (" + this.name + ")";
     }
 
     public Pokemon[]getPokemons(){

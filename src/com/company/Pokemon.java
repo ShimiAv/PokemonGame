@@ -21,7 +21,7 @@ public abstract class Pokemon {
         return attacks;
     }
 
-    protected Pokemon(String name, int maxLife, int maxAttackPoints, int level, Attack[] attack, int currentLife, int currentAttackPoints) {
+    protected Pokemon(String name, int maxLife, int maxAttackPoints, int level, Attack[] attacks, int currentLife, int currentAttackPoints) {
         this.name = name;
         this.maxLife = maxLife;
         this.maxAttackPoints = maxAttackPoints;
@@ -31,6 +31,7 @@ public abstract class Pokemon {
         this.turnCounter = 0;
         this.currentLife = currentLife;
         this.currentAttackPoints = currentAttackPoints;
+        this.attacks = AttackList.KICK;
         this.addAttacks(attacks);
         if (level == Constants.LEVEL_ONE) {
             this.statsCalculator();
@@ -93,14 +94,18 @@ public abstract class Pokemon {
     public void addAttacks(Attack[] attacksList) {
         int length = 0;
         int index;
-        if (this.attacks != null) {
+        if (this.attacks == null) {
+            this.attacks = new Attack[0];
+        } else {
             length = this.attacks.length;
-
+        }
+        if(attacksList == null){
+            attacksList = new Attack[0];
+        }
         Attack[] temp = new Attack[attacksList.length + length];
         for (int i = 0; i < length; i++) {
-            if (temp[i]!=null){
             temp[i] = this.attacks[i];
-        }}
+        }
         index = length;
         int i = 0;
         do {
@@ -109,7 +114,6 @@ public abstract class Pokemon {
             i++;
         } while (i != attacksList.length);
         this.attacks = temp;
-        }
     }
 
     public void reduceLife(int amount) {
@@ -260,7 +264,8 @@ public abstract class Pokemon {
         enemy.performAttack(damage);
         boolean result = enemy.isAlive();
         if (result) {
-            System.out.println("Your killed " + enemy.name);
+            System.out.println(enemy.name+  " is dead " + this.name + " is the winner!");
+            System.out.println();
 
         }
         return result;
