@@ -31,8 +31,9 @@ public class Battle {
         Constants.SCANNER.nextLine();
         switch (userChoice) {
             case 1 -> {
-                if (!player1.getPokemons()[player1.getLevel() - 1].tryToKill(player2.getPokemons()[player2.getLevel() - 1])) {
+                if (!player1.getPokemons()[player1.getLevel() - 1].attack(player2.getPokemons()[player2.getLevel() - 1])) {
                     endLoop = true;
+
                 } else {
                     switchTurn();
                 }
@@ -60,6 +61,7 @@ public class Battle {
                     }
                 }
             }
+
             default -> System.out.println("Invalid input, please try again");
         }
 
@@ -78,6 +80,7 @@ public class Battle {
             startGame(player2, player1);
             System.out.println("PLAYER 1: " + player1.getName() + " " + player1);
             System.out.println("PLAYER 2: " + player2.getName() + " " + player2);
+            lifeAndManaToAdd();
         }
     }
 
@@ -93,6 +96,13 @@ public class Battle {
 
         );
         System.out.println();
+    }
+
+    public static void lifeAndManaToAdd(){
+        player1.getPokemon().addApPerTurn();
+        player2.getPokemon().addApPerTurn();
+        player1.getPokemon().addHpPerTurn();
+        player2.getPokemon().addHpPerTurn();
     }
 
 

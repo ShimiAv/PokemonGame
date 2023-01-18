@@ -27,6 +27,15 @@ public class Constants {
     public static final int HALF_REPRESENTATIVE = 2;
     public static final int DOUBLE_DAMAGE = 2;
     public static final int STARTING_MANA_POINTS = 75;
+    public static final int RANDOM_MANA_TO_ADD = 41;
+    public static final int HP_TO_BE_DEAD = 0;
+    public static final int ADD_HP = 1;
+    public static final int ADD_AP = 2;
+    public static final int HP_TO_ADD_EACH_TURN = 5;
+    public static final int AP_TO_ADD_EACH_TURN = 5;
+
+
+
 
 
 

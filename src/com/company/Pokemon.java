@@ -111,23 +111,23 @@ public abstract class Pokemon {
         int randomLifeAdd = random.nextInt(Constants.MAX_LIFE_ADD - Constants.MIN_LIFE_ADD) + Constants.MIN_LIFE_ADD;
         if (this.currentLife + randomLifeAdd > this.maxLife) {
             this.currentLife = this.maxLife;
-        } else this.setCurrentLife(this.currentLife + randomLifeAdd);
+        } else this.currentLife += randomLifeAdd;
         System.out.println("BONUS : you got more " + randomLifeAdd + " HP");
     }
 
     public void addAttackPoints() {
         Random random = new Random();
-        int randomAttackAdd = random.nextInt(40);
+        int randomAttackAdd = random.nextInt(Constants.RANDOM_MANA_TO_ADD);
         if (this.currentAttackPoints + randomAttackAdd > this.maxAttackPoints) {
             this.currentAttackPoints = this.maxAttackPoints;
-        } else this.setCurrentAttackPoints(currentAttackPoints + randomAttackAdd);
+        } else currentAttackPoints += randomAttackAdd;
         System.out.println("BONUS : you got more " + randomAttackAdd + " AP");
 
     }
 
     public boolean isAlive() {
         boolean alive = true;
-        if (this.currentLife <= 0) {
+        if (this.currentLife == Constants.HP_TO_BE_DEAD) {
             alive = false;
         }
         return alive;
@@ -137,9 +137,9 @@ public abstract class Pokemon {
         int choice = Constants.RANDOM.nextInt(Constants.SKIP_TURN_BOUND) + 1;
         turnCounter++;
         switch (choice) {
-            case 1 -> this.addLife();
-            case 2 -> this.addAttackPoints();
-            case 3 -> {
+            case Constants.ADD_HP -> this.addLife();
+            case Constants.ADD_AP -> this.addAttackPoints();
+            case Constants.CRITICAL_DAMAGE -> {
                 this.criticalDamage = true;
                 this.criticalAttackTurn = this.turnCounter;
             }
@@ -198,7 +198,7 @@ public abstract class Pokemon {
 
     }
 
-    public boolean tryToKill(Pokemon enemy) {
+    public boolean attack(Pokemon enemy) {
         int userInput;
         do {
             userInput = chooseAttack();
@@ -274,6 +274,16 @@ public abstract class Pokemon {
             System.out.println("You cant evolve right now, HP/AP is too low. ");
         }
         return isPossible;
+    }
+
+    public void addHpPerTurn() {
+        int hpToAddConstants = Constants.RANDOM.nextInt(Constants.HP_TO_ADD_EACH_TURN);
+        this.currentLife += hpToAddConstants;
+    }
+
+    public void addApPerTurn() {
+        int apToAddConstants = Constants.RANDOM.nextInt(Constants.AP_TO_ADD_EACH_TURN);
+        this.currentAttackPoints += apToAddConstants;
     }
 
 

@@ -19,7 +19,7 @@ public class FirePokemon extends Pokemon {
     }
 
     public boolean isKilled(Pokemon enemy) {
-        boolean result = super.tryToKill(enemy);
+        boolean result = super.attack(enemy);
         uniqueAbility();
         if (!result&&this.getCurrentLife()<0){
             System.out.println("You killed yourself");
