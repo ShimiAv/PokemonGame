@@ -8,7 +8,7 @@ public class Trainer {
     public Trainer(String name, int level, Pokemon[] pokemon) {
         this.name = name;
         this.pokemons = pokemon;
-    }
+    } //O(1)
 
     public String getName() {
         String name = "";
@@ -20,7 +20,7 @@ public class Trainer {
             }
         }
         return name;
-    }
+    } //O(1)
 
     public int getLevel() {
         int level = 0;
@@ -32,7 +32,7 @@ public class Trainer {
             }
         }
         return level;
-    }
+    } //O(1)
 
     public Pokemon getPokemon() {
         Pokemon pokemonToReturn = null;
@@ -42,7 +42,7 @@ public class Trainer {
             }
         }
         return pokemonToReturn;
-    }
+    } //O(1)
 
     public boolean levelUp() {
         boolean result = false;
@@ -58,15 +58,15 @@ public class Trainer {
             System.out.println("You are at your max level");
         }
         return result;
-    }
+    } //O(1)
 
     public String toString() {
         return this.getPokemon() + "";
-    }
+    } //O(1)
 
     public Pokemon[] getPokemons() {
         return this.pokemons;
-    }
+    } //O(1)
 
 
 }

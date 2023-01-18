@@ -13,15 +13,15 @@ public class Attack {
         this.cost = cost;
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
-    }
+    } //O(1)
 
     public int getCost() {
         return this.cost;
-    }
+    } //O(1)
 
     public void setBonusDamage(int bonusDamage) {
         this.bonusDamage = bonusDamage;
-    }
+    } //O(1)
 
     public int damageRandomizer(){
         int damage;
@@ -33,16 +33,16 @@ public class Attack {
         }
         calculatedBonus = bonusPercentage(damage);
         return calculatedBonus;
-    }
+    } //O(1)
 
     private int bonusPercentage (int bonus) {
         return bonus + (bonus * this.bonusDamage/ 100);
-    }
+    } //O(1)
 
     public String toString () {
         String text = "Attack name: " + this.name + "(" + this.cost + " points)";
         text += " Damage: ";
         text += (this.minDamage==this.maxDamage)? (bonusPercentage(this.maxDamage)): (bonusPercentage(this.minDamage)) + " / " + (bonusPercentage(this.maxDamage));
         return text;
-    }
+    } //O(1)
 }

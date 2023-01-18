@@ -14,7 +14,7 @@ public class Battle {
         randomPokemons[0] = randomPokemon;
         return randomPokemons;
 
-    }
+    } //O(n)
 
     public static void startGame(Trainer player1, Trainer player2) {
         boolean endLoop = false;
@@ -66,10 +66,7 @@ public class Battle {
         }
 
         while (!endLoop) ;
-        }
-
-
-
+        } //O(n)
 
     public static void switchTurn() {
 
@@ -82,8 +79,7 @@ public class Battle {
             System.out.println("PLAYER 2: " + player2.getName() + " " + player2);
             lifeAndManaToAdd();
         }
-    }
-
+    } //O(n)
 
     public static void intro() {
         System.out.println("*** Pokemon are magical creatures of different types and with different special abilities. " +"\n"+
@@ -96,14 +92,14 @@ public class Battle {
 
         );
         System.out.println();
-    }
+    } //O(n)
 
     public static void lifeAndManaToAdd(){
         player1.getPokemon().addApPerTurn();
         player2.getPokemon().addApPerTurn();
         player1.getPokemon().addHpPerTurn();
         player2.getPokemon().addHpPerTurn();
-    }
+    } //O(n)
 
 
 

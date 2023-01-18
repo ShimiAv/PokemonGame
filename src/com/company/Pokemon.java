@@ -34,10 +34,10 @@ public abstract class Pokemon {
         if (level == Constants.LEVEL_ONE) {
             this.statsCalculator();
         }
-    }
+    } //O(1)
 
     public Pokemon() {
-    }
+    } //O(1)
 
     protected void statsDuplication(Pokemon enemy) {
         enemy.name = this.name;
@@ -50,11 +50,11 @@ public abstract class Pokemon {
         enemy.currentLife = this.currentLife;
 
 
-    }
+    } //O(n)
 
     public String getName() {
         return name;
-    }
+    } //O(1)
 
     public abstract int specialPower();
 
@@ -62,7 +62,7 @@ public abstract class Pokemon {
 
     public void setCurrentAttackPoints(int currentAttackPoints) {
         this.currentAttackPoints = currentAttackPoints;
-    }
+    } //O(1)
 
     private void statsCalculator() {
         this.currentAttackPoints = this.startingManaCalculator(this.maxAttackPoints);
@@ -70,7 +70,7 @@ public abstract class Pokemon {
         this.addAttacks(AttackList.KICK);
 
 
-    }
+    } //O(n)
 
     public void addAttacks(Attack[] attacksList) {
         int length = 0;
@@ -95,16 +95,16 @@ public abstract class Pokemon {
             i++;
         } while (i != attacksList.length);
         this.attacks = temp;
-    }
+    } //O(n)
 
     private int startingManaCalculator(int maxAttackPoints) {
         int result = maxAttackPoints * Constants.STARTING_MANA_POINTS / Constants.PERCENT_REPRESENTATIVE;
         return result;
-    }
+    } //O(n)
 
     public int getLevel() {
         return level;
-    }
+    } //O(1)
 
     public void addLife() {
         Random random = new Random();
@@ -113,7 +113,7 @@ public abstract class Pokemon {
             this.currentLife = this.maxLife;
         } else this.currentLife += randomLifeAdd;
         System.out.println("BONUS : you got more " + randomLifeAdd + " HP");
-    }
+    } //O(n)
 
     public void addAttackPoints() {
         Random random = new Random();
@@ -123,7 +123,7 @@ public abstract class Pokemon {
         } else currentAttackPoints += randomAttackAdd;
         System.out.println("BONUS : you got more " + randomAttackAdd + " AP");
 
-    }
+    } //O(n)
 
     public boolean isAlive() {
         boolean alive = true;
@@ -131,7 +131,7 @@ public abstract class Pokemon {
             alive = false;
         }
         return alive;
-    }
+    } //O(n)
 
     public void skipTurn() {
         int choice = Constants.RANDOM.nextInt(Constants.SKIP_TURN_BOUND) + 1;
@@ -146,27 +146,27 @@ public abstract class Pokemon {
 
 
         }
-    }
+    } //O(n)
 
     public String toString() {
         return "Life (" + this.currentLife + " / " + this.maxLife + " )" +
                 "Level " + this.level +
                 " , Attack Points: (" + this.currentAttackPoints + " / " + this.maxAttackPoints + ")";
-    }
+    } //O(1)
 
     public abstract void uniqueAbility();
 
     public int getCurrentLife() {
         return currentLife;
-    }
+    } //O(1)
 
     public void setCurrentLife(int currentLife) {
         this.currentLife = currentLife;
-    }
+    } //O(1)
 
     public int getMaxLife() {
         return maxLife;
-    }
+    } //O(1)
 
     private String printsAttacksArray() {
         String text = "";
@@ -177,7 +177,7 @@ public abstract class Pokemon {
             }
         }
         return text;
-    }
+    } //O(n)
 
     private boolean attackExistenceCheck(int userInput) {
         boolean isExist = false;
@@ -187,7 +187,7 @@ public abstract class Pokemon {
             System.out.println("The input is incorrect, please try again");
         }
         return isExist;
-    }
+    } //O(n)
 
     public void getPreviousStats(Pokemon oldPokemon) {
         this.currentLife = oldPokemon.currentLife;
@@ -196,7 +196,7 @@ public abstract class Pokemon {
         this.criticalDamage = oldPokemon.criticalDamage;
 
 
-    }
+    } //O(n)
 
     public boolean attack(Pokemon enemy) {
         int userInput;
@@ -213,11 +213,11 @@ public abstract class Pokemon {
 
         }
         return result;
-    }
+    } //O(n)
 
     public int getMaxAttackPoints() {
         return maxAttackPoints;
-    }
+    } //O(1)
 
     private int chooseAttack() {
         int chance;
@@ -227,7 +227,7 @@ public abstract class Pokemon {
             Constants.SCANNER.nextLine();
         } while (!attackExistenceCheck(chance));
         return chance;
-    }
+    } //O(n)
 
     public boolean doubleDamage(Pokemon pokemon) {
         int index;
@@ -240,7 +240,7 @@ public abstract class Pokemon {
         this.performAttack(damage);
 
         return this.isAlive();
-    }
+    } //O(n)
 
     private boolean checkPoints(int userInput) {
         boolean result = false;
@@ -250,12 +250,12 @@ public abstract class Pokemon {
             System.out.println("You dont have enough AP ");
         }
         return result;
-    }
+    } //O(n)
 
     void performAttack(int damage) {
 
         this.setCurrentLife(this.getCurrentLife() - damage);
-    }
+    } //O(n)
 
     protected int damageCalculator(Attack attack) {
         int damage = attack.damageRandomizer();
@@ -264,7 +264,7 @@ public abstract class Pokemon {
             this.criticalDamage = false;
         }
         return damage;
-    }
+    } //O(n)
 
     public boolean isEvolvePossible(int minLife, int minMana) {
         boolean isPossible = false;
@@ -274,17 +274,17 @@ public abstract class Pokemon {
             System.out.println("You cant evolve right now, HP/AP is too low. ");
         }
         return isPossible;
-    }
+    } //O(n)
 
     public void addHpPerTurn() {
         int hpToAddConstants = Constants.RANDOM.nextInt(Constants.HP_TO_ADD_EACH_TURN);
         this.currentLife += hpToAddConstants;
-    }
+    } //O(1)
 
     public void addApPerTurn() {
         int apToAddConstants = Constants.RANDOM.nextInt(Constants.AP_TO_ADD_EACH_TURN);
         this.currentAttackPoints += apToAddConstants;
-    }
+    } //O(1)
 
 
 }

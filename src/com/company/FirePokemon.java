@@ -10,13 +10,13 @@ public class FirePokemon extends Pokemon {
             this.setCurrentLife(result);
             System.out.println("you have lost " + selfDamageAmount + "HP");
         }
-    }
+    } //O(1)
 
     public Pokemon duplicatePokemon() {
         ElectricPokemon newPokemon = new ElectricPokemon();
         this.statsDuplication(newPokemon);
         return newPokemon;
-    }
+    } //O(1)
 
     public boolean isKilled(Pokemon enemy) {
         boolean result = super.attack(enemy);
@@ -26,7 +26,7 @@ public class FirePokemon extends Pokemon {
             result =true;
         }
         return result;
-    }
+    } //O(1)
 
     public int specialPower() {
         int result = Constants.SPECIAL_POWER_FAILURE;
@@ -36,14 +36,14 @@ public class FirePokemon extends Pokemon {
             result = Constants.DOUBLE_DAMAGE;
         }
         return result;
-    }
+    } //O(1)
 
 
 
     public FirePokemon(String name, int maxLife, int maxAttackPoints, int level, Attack[] attacks, int currentLife, int currentAttackPoints) {
         super(name, maxLife, maxAttackPoints, level, attacks, currentLife, currentAttackPoints);
 
-    }
+    } //O(1)
 
 
 
